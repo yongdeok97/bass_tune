@@ -1,118 +1,89 @@
+import React, {useState, useEffect} from 'react';
+import {PERMISSIONS, request} from 'react-native-permissions';
+import styled from 'styled-components';
+import ModalTune from './assets/modalTune';
+// import {Provider, useSelector, useDispatch} from 'react-redux'
+
+// state를 어떻게 바꿀것인가. 2개의 파라미터를 받음 ,현재 상태와, 어떻게 바꿀것인지에 대한 액션.
+
+
+// const initialState = {
+//   currentNote: { noteName: "", cents: "", freq: "", octave: "" }
+// };
+
+
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
+ * STYLING
  */
+const Container = styled.View`
+  flex: 1;
+  margin-top: 10%;
+`;
+const Dum = styled.View``;
+const DumButton = styled.TouchableOpacity`
+  background-color: grey;
+  margin-top: 15px;
+  margin-right: 15px;
+  border-radius: 30px;
+  border-width: 10px;
+  border-color: gray;
+`;
+const DomButtonLabel = styled.Text`
+  font-size: 40px;
+`;
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const ImageView = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+`;
+const GuitarImage = styled.Image`
+  height: 100%;
+  width: 100%;
+  /* background-color: gray; */
+`;
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const AbsoluteView = styled.View`
+  position: absolute;
+  flex-direction: column;
+`;
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+export default function App() {
+  // const [recording, setRecording] = useState(false);
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+  // function toggleRecord() {
+  //   if (recording) {
+  //     console.log('starting mic');
+  //     MicStream.start();
+  //   } else {
+  //     console.log('stopping mic');
+  //     MicStream.stop();
+  //   }
+  // }
 
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  useEffect(() => {
+    const requestPermission = () => {
+      request(PERMISSIONS.IOS.MICROPHONE).then(response => {
+        console.log(response);
+      });
+    };
+    requestPermission();
+  }, []);
+  // useEffect(() => {}, [recording]);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    // <Provider>
+      <Container>
+        <ImageView>
+          <GuitarImage source={require('./assets/baseguitar.png')} />
+          <AbsoluteView>
+            <ModalTune value={'E'}></ModalTune>
+            <ModalTune value={'A'}></ModalTune>
+            <ModalTune value={'D'}></ModalTune>
+            <ModalTune value={'G'}></ModalTune>
+          </AbsoluteView>
+        </ImageView>
+      </Container>
+    // </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
