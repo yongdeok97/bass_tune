@@ -69,7 +69,7 @@ export default function App() {
     };
     requestPermission();
   }, []);
-  // useEffect(() => {}, [recording]);
+  useEffect(() => {}, [recording]);
 
   return (
     // <Provider>
