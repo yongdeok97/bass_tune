@@ -2,8 +2,8 @@ import React from 'react';
 import {Modal} from 'react-native';
 import styled from 'styled-components';
 import GaugeTune from './gaugeTune'
+import {SoundAnalyze} from './Sound';
 
-// import {SoundAnalyze} from './Sound';
 // import { useSelector } from 'react-redux';
 import {useDispatch} from 'react-redux';
 
@@ -59,7 +59,7 @@ export default function ModalTune(props) {
     <Container>
       <DumButton
         onPress={() => {
-          //   SoundAnalyze(1);
+            SoundAnalyze(1);
           setShowModal(true);
         }}>
         <DomButtonLabel> {props.value} </DomButtonLabel>
@@ -74,7 +74,7 @@ export default function ModalTune(props) {
         </ModalContainer>
         <DumButton
           onPress={() => {
-            // SoundAnalyze(0);
+            SoundAnalyze(0);
             setShowModal(!showModal);
           }}>
           <DomButtonLabel> 던 </DomButtonLabel>

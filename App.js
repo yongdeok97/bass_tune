@@ -49,7 +49,7 @@ const AbsoluteView = styled.View`
 `;
 
 export default function App() {
-  // const [recording, setRecording] = useState(false);
+  const [recording, setRecording] = useState(false);
 
   // function toggleRecord() {
   //   if (recording) {
