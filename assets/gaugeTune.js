@@ -4,8 +4,6 @@ import {SegmentedArc} from '@shipt/segmented-arc-for-react-native';
 
 const Container = styled.View``;
 
-const Text = styled.Text``;
-
 export default function GuageTune(props) {
   const ranges = ['10', '20', '30', '40', '50'];
   const [showArcRanges, setShowArcRanges] = React.useState(false);

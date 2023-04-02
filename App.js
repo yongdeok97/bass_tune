@@ -1,65 +1,33 @@
 import React, {useState, useEffect} from 'react';
 import {PERMISSIONS, request} from 'react-native-permissions';
-import styled from 'styled-components';
 import ModalTune from './assets/modalTune';
-// import {Provider, useSelector, useDispatch} from 'react-redux'
+import {Container, ImageView, GuitarImage, AbsoluteView} from './assets/styles';
 
-// state를 어떻게 바꿀것인가. 2개의 파라미터를 받음 ,현재 상태와, 어떻게 바꿀것인지에 대한 액션.
+import {Provider, useSelector, useDispatch} from 'react-redux';
+import {createStore} from 'redux';
 
+// 액션 불러와야함
 
-// const initialState = {
-//   currentNote: { noteName: "", cents: "", freq: "", octave: "" }
-// };
+const initialState = {
+  currentNote: { noteName: "", cents: "", freq: "", octave: "" }
+};
 
+const NoteListener = (state = initialState, action) => {
+  switch (action.type) {
+    // case a:
+    //   return {
+    //     ...state,
+    //     currentNote: action.currentNote
+    //   };
+    // default:
+    //   return state;
+  }
+};
 
-/**
- * STYLING
- */
-const Container = styled.View`
-  flex: 1;
-  margin-top: 10%;
-`;
-const Dum = styled.View``;
-const DumButton = styled.TouchableOpacity`
-  background-color: grey;
-  margin-top: 15px;
-  margin-right: 15px;
-  border-radius: 30px;
-  border-width: 10px;
-  border-color: gray;
-`;
-const DomButtonLabel = styled.Text`
-  font-size: 40px;
-`;
-
-const ImageView = styled.View`
-  flex: 1;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-const GuitarImage = styled.Image`
-  height: 100%;
-  width: 100%;
-  /* background-color: gray; */
-`;
-
-const AbsoluteView = styled.View`
-  position: absolute;
-  flex-direction: column;
-`;
+const store = createStore(NoteListener);
 
 export default function App() {
   const [recording, setRecording] = useState(false);
-
-  // function toggleRecord() {
-  //   if (recording) {
-  //     console.log('starting mic');
-  //     MicStream.start();
-  //   } else {
-  //     console.log('stopping mic');
-  //     MicStream.stop();
-  //   }
-  // }
 
   useEffect(() => {
     const requestPermission = () => {
@@ -72,7 +40,7 @@ export default function App() {
   useEffect(() => {}, [recording]);
 
   return (
-    // <Provider>
+    <Provider store = {store}>
       <Container>
         <ImageView>
           <GuitarImage source={require('./assets/baseguitar.png')} />
@@ -84,6 +52,6 @@ export default function App() {
           </AbsoluteView>
         </ImageView>
       </Container>
-    // </Provider>
+    </Provider>
   );
 }
