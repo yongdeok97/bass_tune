@@ -7,6 +7,10 @@ import {Provider, useSelector, useDispatch} from 'react-redux';
 import {createStore} from 'redux';
 
 // 액션 불러와야함
+export const changeCurrentNote = note => ({
+  type: "CHANGE_CURRENT_NOTE",
+  currentNote: note
+});
 
 const initialState = {
   currentNote: { noteName: "", cents: "", freq: "", octave: "" }
@@ -14,20 +18,23 @@ const initialState = {
 
 const NoteListener = (state = initialState, action) => {
   switch (action.type) {
-    // case a:
-    //   return {
-    //     ...state,
-    //     currentNote: action.currentNote
-    //   };
-    // default:
-    //   return state;
+    case "ChangeNote":
+      return {
+        ...state,
+        currentNote: action.currentNote
+      };
+    default:
+      return state;
   }
 };
 
-const store = createStore(NoteListener);
+export const Store = createStore(NoteListener);
 
 export default function App() {
   const [recording, setRecording] = useState(false);
+
+  
+  // console.log("hello" + note)
 
   useEffect(() => {
     const requestPermission = () => {
@@ -40,7 +47,7 @@ export default function App() {
   useEffect(() => {}, [recording]);
 
   return (
-    <Provider store = {store}>
+    <Provider store = {Store}>
       <Container>
         <ImageView>
           <GuitarImage source={require('./assets/baseguitar.png')} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import MicStream from 'react-native-microphone-stream';
 import pitchfinder from 'pitchfinder';
+import {Store, changeCurrentNote} from '../App'
 
 
 const A = 440;
@@ -36,7 +37,6 @@ const getCents = (frequency, note) => {
 export function SoundAnalyze(props) {
   //   const [pitch, setPitch] = React.useState();
   // const dispatch = useDispatch();
-  const [pitch, setPitch] = useRecoilState(chordState);
   console.log(props);
   if (props === 1) {
     console.log('hello');
@@ -67,9 +67,7 @@ export function SoundAnalyze(props) {
       const cents = getCents(freq, note);
       const noteName = noteStrings[note % 12];
       const octave = parseInt(note / 12) - 1;
-      // dispatch({type:'login', changeCurrentNote: { freq, cents, noteName, octave }})
-      // Store.dispatch(changeCurrentNote({ freq, cents, noteName, octave }));
-      setPitch({freq}, {note}, {cents}, {noteName}, {octave});
+      Store.dispatch(changeCurrentNote({ freq, cents, noteName, octave }));
       console.log({freq}, {note}, {cents}, {noteName}, {octave});
     }
   });

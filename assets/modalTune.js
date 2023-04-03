@@ -2,6 +2,7 @@ import React from 'react';
 import {Modal} from 'react-native';
 import GaugeTune from './gaugeTune';
 import {SoundAnalyze} from './Sound';
+import { useSelector } from 'react-redux';
 
 import {
   ChordContainer,
@@ -14,14 +15,15 @@ import {
 export default function ModalTune(props) {
   const [showModal, setShowModal] = React.useState(false);
   const [soundInfo, setSoundInfo] = React.useState([]);
-
+  let number = useSelector((state) => state.currentNote)
+  console.log("hello" + number)
   React.useEffect(() => {}, [showModal]);
 
   return (
     <ChordContainer>
       <ChordButton
         onPress={() => {
-          SoundAnalyze(0);
+          SoundAnalyze(1);
           setShowModal(true);
         }}>
         <ChordButtonLabel> {props.value} </ChordButtonLabel>
