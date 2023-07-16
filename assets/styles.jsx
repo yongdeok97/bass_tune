@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-
+import styled from 'styled-components';
+import {ImageBackground} from 'react-native';
 // app.js
 export const Container = styled.View`
   flex: 1;
@@ -36,7 +36,7 @@ export const ModalSubContainer = styled.View`
   flex: 1;
 `;
 export const ChordButton = styled.TouchableOpacity`
-  background-color: grey;
+  background-color: white;
   margin-top: 15px;
   margin-right: 15px;
   border-radius: 30px;
@@ -46,4 +46,38 @@ export const ChordButton = styled.TouchableOpacity`
 export const ChordButtonLabel = styled.Text`
   font-size: 40px;
 `;
+
+export const NoteContainer = styled.View`
+  position: relative;
+  width: 100%;
+  height: 30%;
+  background-color: white;
+  justify-content: center; // 배경 이미지를 수직 중앙에 위치시킴
+  align-items: center; // 배경 이미지를 수평 중앙에 위치시킴
+`;
+
+export const Note = styled(ImageBackground)`
+  width: 100%;
+  height: 100%;
+`;
+
+export const CircleContainer = styled.View`
+  position: absolute;
+  width: 65px;
+  height: 55px;
+  top: 40%;
+  right: ${props => props.rightValue || 0};
+`;
+
+export const Circle = styled(ImageBackground)`
+  width: 100%;
+  height: 100%;
+`;
+
+export const CircleText = styled.View`
+  position: absolute;
+  left: 25px;
+  top: 16px;
+`;
+
 // modalTune.js-----------
