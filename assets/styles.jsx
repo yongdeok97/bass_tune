@@ -4,6 +4,7 @@ import {ImageBackground} from 'react-native';
 export const Container = styled.View`
   flex: 1;
   margin-top: 10%;
+  background-color: #804ba9;
 `;
 export const ImageView = styled.View`
   flex: 1;
@@ -18,6 +19,7 @@ export const GuitarImage = styled.Image`
 export const AbsoluteView = styled.View`
   position: absolute;
   flex-direction: column;
+  right: 10px;
 `;
 // app.js-----------
 
@@ -38,10 +40,12 @@ export const ModalSubContainer = styled.View`
 export const ChordButton = styled.TouchableOpacity`
   background-color: white;
   margin-top: 15px;
-  margin-right: 15px;
-  border-radius: 30px;
-  border-width: 10px;
-  border-color: gray;
+  /* margin-right: 13px; */
+  border-radius: 15px;
+  border-width: 4px;
+  border-color: #642cbf;
+  justify-content: center;
+  align-items: center; // 수평, 수직 중앙 정렬
 `;
 export const ChordButtonLabel = styled.Text`
   font-size: 40px;
