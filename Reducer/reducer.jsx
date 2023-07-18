@@ -1,7 +1,7 @@
 import {CHANGE_CURRENT_NOTE} from '../Actions/actionTypes';
 
 const initialState = {
-  currentNote: null,
+  currentNote: 0,
 };
 
 const reducer = (state = initialState, action) => {
