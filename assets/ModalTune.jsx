@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Modal} from 'react-native';
 import {useSelector} from 'react-redux';
 import {SoundAnalyze} from './Sound';
@@ -17,9 +17,9 @@ import {
 
 import {Text} from 'react-native';
 
-export default function ModalTune(props) {
-  const [showModal, setShowModal] = React.useState(false);
-  const [noteNum, setNoteNum] = React.useState(150);
+export default function ModalTune({value, curNote, onPress}) {
+  const [showModal, setShowModal] = useState(false);
+  const [noteNum, setNoteNum] = useState(150);
   const currentNote = useSelector(state => state.currentNote);
 
   useEffect(() => {
@@ -29,12 +29,12 @@ export default function ModalTune(props) {
       D: 73.4,
       G: 98,
     };
+    console.log(curNote);
+
     setNoteNum(
-      currentNote
-        ? Math.floor(currentNote.freq - compareFre[props.value])
-        : 150,
+      currentNote ? Math.floor(currentNote.freq - compareFre[curNote]) : 150,
     );
-  }, [currentNote]);
+  }, [currentNote, curNote]);
 
   useEffect(() => {
     console.log('note', noteNum);
@@ -42,12 +42,17 @@ export default function ModalTune(props) {
 
   const handleClick = () => {
     setShowModal(true);
+    onPress(value);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
   };
 
   return (
     <ChordContainer>
       <ChordButton onPress={handleClick}>
-        <ChordButtonLabel> {props.value} </ChordButtonLabel>
+        <ChordButtonLabel> {value} </ChordButtonLabel>
       </ChordButton>
       <Modal visible={showModal} animationType="slide" transparent={true}>
         <ModalContainer>
@@ -56,7 +61,7 @@ export default function ModalTune(props) {
             <NoteContainer>
               <Note source={require('./note.png')} resizeMode="contain" />
               <CircleContainer
-                rightValue={noteNum === NaN ? '0px' : `${150 - noteNum * 2}px`}>
+                rightValue={isNaN(noteNum) ? '0px' : `${150 - noteNum * 2}px`}>
                 <Circle source={require('./circle.png')} resizeMode="contain" />
                 <CircleText>
                   <Text>{Math.floor(noteNum / 5)}</Text>
@@ -65,7 +70,7 @@ export default function ModalTune(props) {
             </NoteContainer>
           </ModalSubContainer>
         </ModalContainer>
-        <ChordButton onPress={() => setShowModal(false)}>
+        <ChordButton onPress={closeModal}>
           <ChordButtonLabel> 완료 </ChordButtonLabel>
         </ChordButton>
       </Modal>
