@@ -1,5 +1,5 @@
 // SoundAnalyze.js
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import MicStream from 'react-native-microphone-stream';
 import pitchfinder from 'pitchfinder';
@@ -40,8 +40,8 @@ const getCents = (frequency, note) => {
 export function SoundAnalyze() {
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    let listener;
+  useEffect(() => {
+    let listener = null;
 
     const startListening = () => {
       MicStream.init({
@@ -65,7 +65,6 @@ export function SoundAnalyze() {
           const noteName = noteStrings[note % 12];
           const octave = parseInt(note / 12) - 1;
           dispatch(changeCurrentNote({freq, cents, noteName, octave}));
-          // console.log(freq, note, cents, noteName, octave);
         }
       });
     };
@@ -73,6 +72,7 @@ export function SoundAnalyze() {
     const stopListening = () => {
       if (listener) {
         listener.remove();
+        listener = null;
         MicStream.stop();
       }
     };

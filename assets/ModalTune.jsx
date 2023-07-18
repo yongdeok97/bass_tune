@@ -15,11 +15,10 @@ import {
   CircleText,
 } from './styles';
 
-import {Text, Image} from 'react-native';
+import {Text} from 'react-native';
 
 export default function ModalTune(props) {
   const [showModal, setShowModal] = React.useState(false);
-  const [curNote, setCurNote] = React.useState('');
   const [noteNum, setNoteNum] = React.useState(150);
   const currentNote = useSelector(state => state.currentNote);
 
@@ -31,7 +30,9 @@ export default function ModalTune(props) {
       G: 98,
     };
     setNoteNum(
-      currentNote ? Math.floor(currentNote.freq) - compareFre[curNote] : 0,
+      currentNote
+        ? Math.floor(currentNote.freq - compareFre[props.value])
+        : 150,
     );
   }, [currentNote]);
 
@@ -41,7 +42,6 @@ export default function ModalTune(props) {
 
   const handleClick = () => {
     setShowModal(true);
-    setCurNote(props.value);
   };
 
   return (
@@ -55,7 +55,8 @@ export default function ModalTune(props) {
             {showModal && <SoundAnalyze />}
             <NoteContainer>
               <Note source={require('./note.png')} resizeMode="contain" />
-              <CircleContainer rightValue={`${150 - noteNum * 2}px`}>
+              <CircleContainer
+                rightValue={noteNum === NaN ? '0px' : `${150 - noteNum * 2}px`}>
                 <Circle source={require('./circle.png')} resizeMode="contain" />
                 <CircleText>
                   <Text>{Math.floor(noteNum / 5)}</Text>
@@ -71,6 +72,3 @@ export default function ModalTune(props) {
     </ChordContainer>
   );
 }
-
-// 300 ~ 0
-// 어떻게 해야 좋을까?
