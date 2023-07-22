@@ -8,8 +8,6 @@ export default function GaugeTune(props) {
   const ranges = ['1', '2', '3', '4', '5'];
   const [showArcRanges, setShowArcRanges] = React.useState(true);
 
-  console.log('asd', props.value);
-
   const segments = [
     {
       scale: 0.25,

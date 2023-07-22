@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {PERMISSIONS, request} from 'react-native-permissions';
-import NoteButton from './assets/NoteButton';
+import NoteButton from './components/NoteButton';
 
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
